@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="GraduateProject" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ZHU-PC;Initial Catalog=GraduateProject;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GraduateProjectConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Picture" Member="Picture">
+    <Type Name="Picture">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pic_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pic_url" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pic_state" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Picture_UserInfo" Member="UserInfo" ThisKey="id" OtherKey="img_id" Type="UserInfo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="Users">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="create_time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Users_Project_content" Member="Project_content" ThisKey="id" OtherKey="user_id" Type="Project_content" />
+      <Association Name="Users_Project_join" Member="Project_join" ThisKey="id" OtherKey="user_id" Type="Project_join" />
+      <Association Name="Users_Project_review" Member="Project_review" ThisKey="id" OtherKey="user_id" Type="Project_review" />
+      <Association Name="Users_Status" Member="Status" ThisKey="id" OtherKey="user_id" Type="Status" />
+      <Association Name="Users_UserInfo" Member="UserInfo" ThisKey="id" OtherKey="user_id" Type="UserInfo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project_content" Member="Project_content">
+    <Type Name="Project_content">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="projectname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="time_start" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="time_end" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="content" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="sort" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="files" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="summary" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="Project_content_Project_funds" Member="Project_funds" ThisKey="id" OtherKey="project_id" Type="Project_funds" />
+      <Association Name="Project_content_Project_join" Member="Project_join" ThisKey="id" OtherKey="project_id" Type="Project_join" />
+      <Association Name="Project_content_Project_review" Member="Project_review" ThisKey="id" OtherKey="project_id" Type="Project_review" />
+      <Association Name="Project_content_Project_status" Member="Project_status" ThisKey="id" OtherKey="project_id" Type="Project_status" />
+      <Association Name="Users_Project_content" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project_funds" Member="Project_funds">
+    <Type Name="Project_funds">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="funds_limit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="funds_now" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="funds_begin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_content_Project_funds" Member="Project_content" ThisKey="project_id" OtherKey="id" Type="Project_content" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project_join" Member="Project_join">
+    <Type Name="Project_join">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="funds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_content_Project_join" Member="Project_content" ThisKey="project_id" OtherKey="id" Type="Project_content" IsForeignKey="true" />
+      <Association Name="Users_Project_join" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project_review" Member="Project_review">
+    <Type Name="Project_review">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="content" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Project_content_Project_review" Member="Project_content" ThisKey="project_id" OtherKey="id" Type="Project_content" IsForeignKey="true" />
+      <Association Name="Users_Project_review" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project_status" Member="Project_status">
+    <Type Name="Project_status">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="content" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="project_status" Member="project_status1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Project_content_Project_status" Member="Project_content" ThisKey="project_id" OtherKey="id" Type="Project_content" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Status" Member="Status">
+    <Type Name="Status">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status_name" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Users_Status" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserInfo" Member="UserInfo">
+    <Type Name="UserInfo">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="img_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="ID_Card" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="funds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Picture_UserInfo" Member="Picture" ThisKey="img_id" OtherKey="id" Type="Picture" IsForeignKey="true" />
+      <Association Name="Users_UserInfo" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
