@@ -1,0 +1,104 @@
+create database GraduateProject
+go
+
+use GraduateProject
+go
+
+create table Users(
+id int identity(1,1) primary key,
+time datetime null,
+create_time datetime not null,
+password varchar(50) not null
+);
+go
+
+create table Status(
+id int identity(1,1) primary key,
+user_id int not null,
+status_name nvarchar(10) default('普通用户'),
+foreign key(user_id) references Users(id) /*被参照表示User表*/
+);
+go
+
+create table Picture(
+id int identity(1,1) primary key,
+pic_name varchar(50) not null,
+pic_url varchar(50) not null,
+pic_state varchar(50) null
+);
+go
+
+create table UserInfo(
+id int identity(1,1) primary key,
+user_id int not null,
+img_id int not null,
+username nvarchar(25) not null,
+name nvarchar(50) null,
+email varchar(50) not null,
+address nvarchar(150) null,
+phone varchar(20) not null,
+ID_Card varchar(20) null,
+funds int null,
+foreign key(user_id) references Users(id),
+foreign key(img_id) references Picture(id)
+);
+go
+
+create table Project_content(
+id int identity(1,1) primary key,
+user_id int not null,
+projectname varchar(100) not null,
+time_start datetime not null,
+time_end datetime null,
+title nvarchar(50) not null,
+content nvarchar(255) not null,
+sort varchar(100) null,
+files varchar(100) null,
+summary nvarchar(150) null,
+foreign key(user_id) references Users(id)
+);
+go
+
+create table Project_funds(
+id int identity(1,1) primary key,
+project_id int not null,
+funds_limit int not null,
+funds_now int not null,
+funds_begin int default(0),
+foreign key(project_id) references Project_content(id)
+);
+go
+
+create table Project_review(
+id int identity(1,1) primary key,
+project_id int not null,
+user_id int not null,
+time datetime not null,
+content nvarchar(255) not null,
+status int default(1),
+foreign key(project_id) references Project_content(id),
+foreign key(user_id) references Users(id)
+);
+create table Project_join(
+id int identity(1,1) primary key,
+project_id int not null,
+user_id int not null,
+funds int null,
+foreign key(project_id) references Project_content(id),
+foreign key(user_id) references Users(id)
+);
+create table Project_status(
+id int identity(1,1) primary key,
+project_id int not null,
+content nvarchar(255) not null,
+project_status nvarchar(50) default('未提交'),
+foreign key(project_id) references Project_content(id)
+);
+
+go
+create table Project_sort(
+id int identity(1,1) primary key,
+project_id int not null,
+sort varchar(50) not null,
+foregin key(project_id) references Project_content(id)
+);
