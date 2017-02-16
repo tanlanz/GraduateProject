@@ -47,6 +47,9 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
   partial void InsertProject_review(Project_review instance);
   partial void UpdateProject_review(Project_review instance);
   partial void DeleteProject_review(Project_review instance);
+  partial void InsertProject_sort(Project_sort instance);
+  partial void UpdateProject_sort(Project_sort instance);
+  partial void DeleteProject_sort(Project_sort instance);
   partial void InsertProject_status(Project_status instance);
   partial void UpdateProject_status(Project_status instance);
   partial void DeleteProject_status(Project_status instance);
@@ -59,7 +62,7 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
   #endregion
 	
 	public DataClassesDataContext() : 
-			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GraduateProjectConnectionString"].ConnectionString, mappingSource)
+			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["GraduateProjectConnectionString1"].ConnectionString, mappingSource)
 	{
 		OnCreated();
 	}
@@ -133,6 +136,14 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		get
 		{
 			return this.GetTable<Project_review>();
+		}
+	}
+	
+	public System.Data.Linq.Table<Project_sort> Project_sort
+	{
+		get
+		{
+			return this.GetTable<Project_sort>();
 		}
 	}
 	
@@ -629,6 +640,8 @@ public partial class Project_content : INotifyPropertyChanging, INotifyPropertyC
 	
 	private EntitySet<Project_review> _Project_review;
 	
+	private EntitySet<Project_sort> _Project_sort;
+	
 	private EntitySet<Project_status> _Project_status;
 	
 	private EntityRef<Users> _Users;
@@ -664,6 +677,7 @@ public partial class Project_content : INotifyPropertyChanging, INotifyPropertyC
 		this._Project_funds = new EntitySet<Project_funds>(new Action<Project_funds>(this.attach_Project_funds), new Action<Project_funds>(this.detach_Project_funds));
 		this._Project_join = new EntitySet<Project_join>(new Action<Project_join>(this.attach_Project_join), new Action<Project_join>(this.detach_Project_join));
 		this._Project_review = new EntitySet<Project_review>(new Action<Project_review>(this.attach_Project_review), new Action<Project_review>(this.detach_Project_review));
+		this._Project_sort = new EntitySet<Project_sort>(new Action<Project_sort>(this.attach_Project_sort), new Action<Project_sort>(this.detach_Project_sort));
 		this._Project_status = new EntitySet<Project_status>(new Action<Project_status>(this.attach_Project_status), new Action<Project_status>(this.detach_Project_status));
 		this._Users = default(EntityRef<Users>);
 		OnCreated();
@@ -912,6 +926,19 @@ public partial class Project_content : INotifyPropertyChanging, INotifyPropertyC
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_content_Project_sort", Storage="_Project_sort", ThisKey="id", OtherKey="project_id")]
+	public EntitySet<Project_sort> Project_sort
+	{
+		get
+		{
+			return this._Project_sort;
+		}
+		set
+		{
+			this._Project_sort.Assign(value);
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_content_Project_status", Storage="_Project_status", ThisKey="id", OtherKey="project_id")]
 	public EntitySet<Project_status> Project_status
 	{
@@ -1010,6 +1037,18 @@ public partial class Project_content : INotifyPropertyChanging, INotifyPropertyC
 	}
 	
 	private void detach_Project_review(Project_review entity)
+	{
+		this.SendPropertyChanging();
+		entity.Project_content = null;
+	}
+	
+	private void attach_Project_sort(Project_sort entity)
+	{
+		this.SendPropertyChanging();
+		entity.Project_content = this;
+	}
+	
+	private void detach_Project_sort(Project_sort entity)
 	{
 		this.SendPropertyChanging();
 		entity.Project_content = null;
@@ -1682,6 +1721,157 @@ public partial class Project_review : INotifyPropertyChanging, INotifyPropertyCh
 					this._user_id = default(int);
 				}
 				this.SendPropertyChanged("Users");
+			}
+		}
+	}
+	
+	public event PropertyChangingEventHandler PropertyChanging;
+	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
+	protected virtual void SendPropertyChanging()
+	{
+		if ((this.PropertyChanging != null))
+		{
+			this.PropertyChanging(this, emptyChangingEventArgs);
+		}
+	}
+	
+	protected virtual void SendPropertyChanged(String propertyName)
+	{
+		if ((this.PropertyChanged != null))
+		{
+			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
+}
+
+[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Project_sort")]
+public partial class Project_sort : INotifyPropertyChanging, INotifyPropertyChanged
+{
+	
+	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+	
+	private int _id;
+	
+	private int _project_id;
+	
+	private string _sort;
+	
+	private EntityRef<Project_content> _Project_content;
+	
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onproject_idChanging(int value);
+    partial void Onproject_idChanged();
+    partial void OnsortChanging(string value);
+    partial void OnsortChanged();
+    #endregion
+	
+	public Project_sort()
+	{
+		this._Project_content = default(EntityRef<Project_content>);
+		OnCreated();
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this.OnidChanging(value);
+				this.SendPropertyChanging();
+				this._id = value;
+				this.SendPropertyChanged("id");
+				this.OnidChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project_id", DbType="Int NOT NULL")]
+	public int project_id
+	{
+		get
+		{
+			return this._project_id;
+		}
+		set
+		{
+			if ((this._project_id != value))
+			{
+				if (this._Project_content.HasLoadedOrAssignedValue)
+				{
+					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+				}
+				this.Onproject_idChanging(value);
+				this.SendPropertyChanging();
+				this._project_id = value;
+				this.SendPropertyChanged("project_id");
+				this.Onproject_idChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sort", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+	public string sort
+	{
+		get
+		{
+			return this._sort;
+		}
+		set
+		{
+			if ((this._sort != value))
+			{
+				this.OnsortChanging(value);
+				this.SendPropertyChanging();
+				this._sort = value;
+				this.SendPropertyChanged("sort");
+				this.OnsortChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Project_content_Project_sort", Storage="_Project_content", ThisKey="project_id", OtherKey="id", IsForeignKey=true)]
+	public Project_content Project_content
+	{
+		get
+		{
+			return this._Project_content.Entity;
+		}
+		set
+		{
+			Project_content previousValue = this._Project_content.Entity;
+			if (((previousValue != value) 
+						|| (this._Project_content.HasLoadedOrAssignedValue == false)))
+			{
+				this.SendPropertyChanging();
+				if ((previousValue != null))
+				{
+					this._Project_content.Entity = null;
+					previousValue.Project_sort.Remove(this);
+				}
+				this._Project_content.Entity = value;
+				if ((value != null))
+				{
+					value.Project_sort.Add(this);
+					this._project_id = value.id;
+				}
+				else
+				{
+					this._project_id = default(int);
+				}
+				this.SendPropertyChanged("Project_content");
 			}
 		}
 	}

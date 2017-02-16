@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="GraduateProject" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=ZHU-PC;Initial Catalog=GraduateProject;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GraduateProjectConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=139.129.54.104;Initial Catalog=GraduateProject;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GraduateProjectConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Picture" Member="Picture">
     <Type Name="Picture">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -37,6 +37,7 @@
       <Association Name="Project_content_Project_funds" Member="Project_funds" ThisKey="id" OtherKey="project_id" Type="Project_funds" />
       <Association Name="Project_content_Project_join" Member="Project_join" ThisKey="id" OtherKey="project_id" Type="Project_join" />
       <Association Name="Project_content_Project_review" Member="Project_review" ThisKey="id" OtherKey="project_id" Type="Project_review" />
+      <Association Name="Project_content_Project_sort" Member="Project_sort" ThisKey="id" OtherKey="project_id" Type="Project_sort" />
       <Association Name="Project_content_Project_status" Member="Project_status" ThisKey="id" OtherKey="project_id" Type="Project_status" />
       <Association Name="Users_Project_content" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
     </Type>
@@ -71,6 +72,14 @@
       <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Project_content_Project_review" Member="Project_content" ThisKey="project_id" OtherKey="id" Type="Project_content" IsForeignKey="true" />
       <Association Name="Users_Project_review" Member="Users" ThisKey="user_id" OtherKey="id" Type="Users" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Project_sort" Member="Project_sort">
+    <Type Name="Project_sort">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="project_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sort" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Project_content_Project_sort" Member="Project_content" ThisKey="project_id" OtherKey="id" Type="Project_content" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Project_status" Member="Project_status">

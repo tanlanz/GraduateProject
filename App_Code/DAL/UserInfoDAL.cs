@@ -130,5 +130,49 @@ namespace DAL
             }
         }
         #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年2月15日
+        ** 最后维护时间：2017年2月15日
+        ** 输出参数：
+            List<UserInfo>               一组UserInfo实例
+        ******************************/
+        #region ### Get_UserInfos  获取所有UserInfo对象
+        public List<UserInfo> Get_UserInfos()
+        {
+            try
+            {
+                return db.UserInfo.ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_UserInfos exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年2月15日
+        ** 最后维护时间：2017年2月15日
+        ** 输出参数：
+            UserInfo              一个UserInfo实例
+        ******************************/
+        #region ### Get_UserInfoByName  获取UserInfo对象
+        public UserInfo Get_UserInfoByName(string Name)
+        {
+            try
+            {
+                return db.UserInfo.First(a => a.name.Equals(Name));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_UserInfoByName exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DAL;
+using System.Net.Mail;
 
 /// <summary>
 /// UserBLL 的摘要说明
@@ -12,22 +13,111 @@ namespace BLL
 {
     public class UserBLL
     {
+        UsersDAL ud = new UsersDAL();
+        UserInfoDAL infod = new UserInfoDAL();
         public UserBLL()
         {
             //
             // TODO: 在此处添加构造函数逻辑
             //
         }
-        /******************************
-       ** 作者：zhu 
-       ** 创建时间：2016年10月10日
-       ** 输入参数：
-           ***                  ***        
-       ** 输出参数：
-           ***                  ***
-       ******************************/
         #region ### 
 
+        #endregion
+
+        #region ### 注册
+        public string Register(string Name,string Password,string Email,string PhoneNumber)
+        {
+            UserInfo info = new UserInfo();
+            Users user = new Users();
+            Status status = new Status();
+            string text = "Error";
+            try
+            {
+                if (infod.Get_UserInfoByName(Name) != null) { text = "RENAME";return text; }
+                user.create_time = DateTime.Now;
+                user.password = Password;
+                ud.Insert_Users(user);
+
+                info.user_id = user.id;
+                info.name = Name;
+                info.phone = PhoneNumber;
+                info.email = Email;
+                infod.Insert_UserInfo(info);
+
+                status.user_id = user.id;
+                status.status_name = "禁止访问";
+                new StatusDAL().Insert_Status(status);
+
+                //string rcontext = "请点击如下链接:<a href='http://localhost:86/verifemail.aspx?em=" + pu.pus_email + "&vercode=" + pu.pus_verif + "'>链接</a>";
+                //SendEmail("tanlanz@163.com", Email, "xxx@126.com", "邮箱激活邮件", rcontext);
+                text = "Success";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return text;
+            }
+            return text;
+        }
+        #endregion
+
+        #region ###建立邮件实体
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email_from">邮件发送方</param>
+        /// <param name="email_to">邮件接收方</param>
+        /// <param name="email_cc">邮件接收方</param>
+        /// <param name="subject">邮件标题</param>
+        /// <param name="strBody">邮件内容</param>
+        public void SendEmail(string email_from, string email_to, string email_cc, string subject, string strBody)
+        {
+            try
+            {
+                //建立一个邮件实体
+                MailAddress from = new MailAddress(email_from);
+                MailAddress to = new MailAddress(email_to);
+                MailMessage massage = new MailMessage(from, to);
+                if (string.IsNullOrEmpty(email_cc)) return;
+                foreach (string css in email_cc.Split(';'))
+                {
+                    MailAddress cc = new MailAddress(css);
+                    massage.CC.Add(cc);
+                }
+                massage.IsBodyHtml = true;
+                massage.BodyEncoding = System.Text.Encoding.UTF8;
+                massage.Priority = MailPriority.High;
+                massage.Subject = subject;
+                massage.Body = strBody;
+                
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.163.com";
+                smtp.Port = 25;
+                smtp.Credentials = new System.Net.NetworkCredential("tanlanz@163.com", "85799491");//需要加密
+                smtp.Send(massage);//发送邮件
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        #endregion
+
+        #region ### RndCode  生成一组随机数
+        public string RndCode(int length)
+        {
+            Char[] arcChar = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            '0','1','2','3','4','5','6','7','8','9',
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+            System.Text.StringBuilder num = new System.Text.StringBuilder();
+            Random rnd = new Random(DateTime.Now.Millisecond + 3);
+            for (int i = 0; i < length; i++)
+            {
+                num.Append(arcChar[rnd.Next(0, arcChar.Length)].ToString());
+            }
+            return num.ToString();
+        }
         #endregion
     }
 }
