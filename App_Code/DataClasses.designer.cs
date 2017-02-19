@@ -2233,7 +2233,7 @@ public partial class UserInfo : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private int _user_id;
 	
-	private int _img_id;
+	private System.Nullable<int> _img_id;
 	
 	private string _username;
 	
@@ -2261,7 +2261,7 @@ public partial class UserInfo : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnidChanged();
     partial void Onuser_idChanging(int value);
     partial void Onuser_idChanged();
-    partial void Onimg_idChanging(int value);
+    partial void Onimg_idChanging(System.Nullable<int> value);
     partial void Onimg_idChanged();
     partial void OnusernameChanging(string value);
     partial void OnusernameChanged();
@@ -2330,8 +2330,8 @@ public partial class UserInfo : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_img_id", DbType="Int NOT NULL")]
-	public int img_id
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_img_id", DbType="Int")]
+	public System.Nullable<int> img_id
 	{
 		get
 		{
@@ -2521,7 +2521,7 @@ public partial class UserInfo : INotifyPropertyChanging, INotifyPropertyChanged
 				}
 				else
 				{
-					this._img_id = default(int);
+					this._img_id = default(Nullable<int>);
 				}
 				this.SendPropertyChanged("Picture");
 			}

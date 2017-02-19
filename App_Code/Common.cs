@@ -97,4 +97,26 @@ public class Common
         }
     }
     #endregion
+
+    #region ###加密
+    public static string Encrypt(string PWD)
+    {
+        return PWD = MD5(PWD);
+    }
+    static string MD5(string Code)
+    {
+        return Code = getMd5Hash(getMd5Hash(Code)+Code.Length);
+    }
+    static string getMd5Hash(string input)
+    {
+        MD5CryptoServiceProvider Md5Hasher1 = new MD5CryptoServiceProvider();
+        byte[] data = Md5Hasher1.ComputeHash(Encoding.Default.GetBytes(input));
+        StringBuilder sBuilder = new StringBuilder();
+        for (int i = 0; i < data.Length; i++)
+        {
+            sBuilder.Append(data[i].ToString("x2"));
+        }
+        return sBuilder.ToString();
+    }
+    #endregion
 }

@@ -3,22 +3,8 @@
     alert("test");
 */
 
-//$.ajax({
-//    url: "",
-//    type: "Post",
-//    dataType: "html",
-//    success: function (data, status) {
-//        alert("");
-//    }
-//});
-
 //$("#").click(function () {
 //});
-
-//var data = {
-//    phone: $("#bind-phone").val(),
-//    checkcode: $("#verificate").val()
-//}
 
 $(document).ready(function () {
     //alert("");
@@ -52,11 +38,37 @@ function SignUp() {
         success: function (data, status) {
             switch (data) {
                 case "PWD_MISSMATCH":alert("密码不一致!"); break;
-                case "USERNAME": alert("用户名已被注册!"); break;
-                case "": break;
+                case "RENAME": alert("用户名已被注册!"); break;
+                case "REEMAIL": alert("邮箱已注册过!"); break;
+                case "Success": alert("成功注册，请登录您的邮箱进行验证!"); window.location.href = "../sign_In.html"; break;
                 default:
-                    alert("成功注册，请登录您的邮箱进行验证!");
-                    window.location.href("sign_In.html");
+                    alert(data);
+            }
+        }
+    });
+}
+
+//登陆
+function SignIn() {
+    var UserName = $("#UserName").val();
+    var Password = $("#Password").val();
+    if (UserName == ""|| Password == "") {alert("所有项均不能为空"); return false;}
+    data1 = {
+        UserName: UserName,
+        Password: Password
+    }
+    $.ajax({
+        url: "../ashx/SignIn.ashx",
+        data: data1,
+        type: "Post",
+        datatype: "Html",
+        success: function (data, status) {
+            switch (data) {
+                case "NOEXSIT": alert("用户不存在"); break;
+                case "SUCCESSLOGIN": alert("成功登陆"); window.location.href = "../index.html"; break;
+                case "ERRORLOGIN": alert("账号密码错误或登陆出错，请联系管理员"); break;
+                default:
+                    alert(data);
             }
         }
     });

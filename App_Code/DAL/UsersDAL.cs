@@ -124,5 +124,28 @@ namespace DAL
             }
         }
         #endregion
+
+        /******************************
+       ** 作者：zhu
+       ** 创建时间：2017年2月19日
+       ** 输入参数：
+           DateTime                      
+       ** 输出参数：
+           Users               一个Users实例
+       ******************************/
+        #region ### Get_UsersByTime  依据id获取一个Users对象
+        public Users Get_UsersByTime(DateTime time)
+        {
+            try
+            {
+                return db.Users.First(a => a.create_time.Equals(time));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_UsersByTime exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
     }
 }

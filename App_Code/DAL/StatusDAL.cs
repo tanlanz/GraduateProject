@@ -124,5 +124,27 @@ namespace DAL
         }
         #endregion
 
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2016年10月9日
+        ** 输入参数：
+            int id              一个Status对象唯一识别码         
+        ** 输出参数：
+            Status               一个Status实例
+        ******************************/
+        #region ### Get_StatusByUserId  依据id获取一个Status对象
+        public Status Get_StatusByUserId(int UserId)
+        {
+            try
+            {
+                return db.Status.First(a => a.user_id.Equals(UserId));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_StatusByUserId exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
     }
 }

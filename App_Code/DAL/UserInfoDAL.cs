@@ -160,16 +160,38 @@ namespace DAL
         ** 输出参数：
             UserInfo              一个UserInfo实例
         ******************************/
-        #region ### Get_UserInfoByName  获取UserInfo对象
-        public UserInfo Get_UserInfoByName(string Name)
+        #region ### Get_UserInfoByUserName  获取UserInfo对象
+        public UserInfo Get_UserInfoByUserName(string Name)
         {
             try
             {
-                return db.UserInfo.First(a => a.name.Equals(Name));
+                return db.UserInfo.First(a => a.username.Equals(Name));
             }
             catch (Exception e)
             {
-                Console.WriteLine("{3} Get_UserInfoByName exception caught." + e);
+                Console.WriteLine("{3} Get_UserInfoByUserName exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年2月19日
+        ** 最后维护时间：2017年2月19日
+        ** 输出参数：
+            UserInfo              一个UserInfo实例
+        ******************************/
+        #region ### Get_UserInfoByUserEmail  获取UserInfo对象
+        public UserInfo Get_UserInfoByUserEmail(string Email)
+        {
+            try
+            {
+                return db.UserInfo.First(a => a.email.Equals(Email));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_UserInfoByUserEmail exception caught." + e);
                 return null;
             }
         }

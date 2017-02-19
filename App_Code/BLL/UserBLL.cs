@@ -15,6 +15,7 @@ namespace BLL
     {
         UsersDAL ud = new UsersDAL();
         UserInfoDAL infod = new UserInfoDAL();
+        StatusDAL stad = new StatusDAL();
         public UserBLL()
         {
             //
@@ -25,30 +26,47 @@ namespace BLL
 
         #endregion
 
+        #region ### 登陆 
+        public string Login(string UserName, string PWD)
+        {
+            UserInfo UserInfo = infod.Get_UserInfoByUserName(UserName);
+            if (UserInfo == null) { return "NOEXSIT"; }
+            Users User = ud.Get_UsersById(UserInfo.user_id);
+            if (User == null) { return "NOEXSIT"; }
+            Status Status = stad.Get_StatusByUserId(User.id);
+            if(Status == null) { return "NOEXSIT"; }
+            if (Status.status_name != "禁止访问" && User.password.Equals(Common.Encrypt(PWD)))
+            {
+                User.time = DateTime.Now;
+                return "SUCCESSLOGIN";
+            }
+            return "ERRORLOGIN";            
+        }
+        #endregion
+
         #region ### 注册
         public string Register(string Name,string Password,string Email,string PhoneNumber)
         {
             UserInfo info = new UserInfo();
             Users user = new Users();
             Status status = new Status();
+            DateTime time = DateTime.Now;
             string text = "Error";
             try
             {
-                if (infod.Get_UserInfoByName(Name) != null) { text = "RENAME";return text; }
-                user.create_time = DateTime.Now;
-                user.password = Password;
-                ud.Insert_Users(user);
-
-                info.user_id = user.id;
-                info.name = Name;
+                if (infod.Get_UserInfoByUserName(Name) != null) { text = "RENAME";return text; }
+                if (infod.Get_UserInfoByUserEmail(Email) != null) { text = "REEMAIL"; return text; }
+                user.create_time = time;
+                user.password = Common.Encrypt(Password);
+                if (!ud.Insert_Users(user)){ return text + "1"; }
+                info.user_id = ud.Get_UsersByTime(time).id;
+                info.username = Name;
                 info.phone = PhoneNumber;
                 info.email = Email;
-                infod.Insert_UserInfo(info);
-
-                status.user_id = user.id;
+                if (!infod.Insert_UserInfo(info)) { return text + "2"; }
+                status.user_id = ud.Get_UsersByTime(time).id;
                 status.status_name = "禁止访问";
-                new StatusDAL().Insert_Status(status);
-
+                if (!stad.Insert_Status(status)) { return text + "3"; }
                 //string rcontext = "请点击如下链接:<a href='http://localhost:86/verifemail.aspx?em=" + pu.pus_email + "&vercode=" + pu.pus_verif + "'>链接</a>";
                 //SendEmail("tanlanz@163.com", Email, "xxx@126.com", "邮箱激活邮件", rcontext);
                 text = "Success";
