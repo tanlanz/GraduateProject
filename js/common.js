@@ -24,6 +24,7 @@ function SignUp() {
     if (!reg.test(Email)) {alert("非法的电子邮件");return false;}
     if (Password != ConfirmPassword) { alert("密码不一致!"); return false; }    
     data1 = {
+        type2 :"SIGNUP",
         UserName: UserName,
         PhoneNumber: PhoneNumber,
         Email: Email,
@@ -31,7 +32,7 @@ function SignUp() {
         ConfirmPassword: ConfirmPassword
     }
     $.ajax({
-        url: "../ashx/SignUp.ashx",
+        url: "../ashx/LoginOrRegister.ashx",
         data: data1,
         type:"Post",
         datatype:"Html",    
@@ -54,11 +55,12 @@ function SignIn() {
     var Password = $("#Password").val();
     if (UserName == ""|| Password == "") {alert("所有项均不能为空"); return false;}
     data1 = {
+        type2:"SIGNIN",
         UserName: UserName,
         Password: Password
     }
     $.ajax({
-        url: "../ashx/SignIn.ashx",
+        url: "../ashx/LoginOrRegister.ashx",
         data: data1,
         type: "Post",
         datatype: "Html",

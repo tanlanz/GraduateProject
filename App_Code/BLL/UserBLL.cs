@@ -26,6 +26,25 @@ namespace BLL
 
         #endregion
 
+        #region ### 验证注册邮箱（未完成）
+        public string VeriEmail(string Code)
+        {
+            //1、使用数据库记录验证码
+            //2、使用加密解密算法分析传进来的值，得到用户名
+            //int id = infod.Get_UserInfoByUserName(userName).user_id;
+            //stad.Get_StatusByUserId(id).status_name = "允许访问";
+            ; return "SUCC";
+        }
+        #endregion
+
+        #region ### 验证登陆状态
+        public string Check_Login(string UserName)
+        {
+            if (infod.Get_UserInfoByUserName(UserName) == null) { return "ERROR"; }
+            return "SUCC";
+        }
+        #endregion
+
         #region ### 登陆 
         public string Login(string UserName, string PWD)
         {

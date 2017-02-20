@@ -135,7 +135,7 @@ namespace DAL
         ** 作者：zhu
         ** 创建时间：2016年10月9日
         ** 输入参数：
-            string ip              一个Project_content对象d的ip        
+            string state              一个Project_content对象的state        
         ** 输出参数：
             Project_content               一个Project_content实例
         ******************************/
@@ -149,6 +149,27 @@ namespace DAL
             catch (Exception e)
             {
                 Console.WriteLine("{4} Get_Project_content exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年2月20日        
+        ** 输出参数：
+            Get_Project               Get_Project
+        ******************************/
+        #region ### Get_Project 依据id获取一个Project_content对象
+        public List<Project_content> Get_Project()
+        {
+            try
+            {
+                return db.Project_content.OrderByDescending(a => a.id).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{4} Get_Project exception caught." + e);
                 return null;
             }
         }
