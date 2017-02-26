@@ -1,67 +1,162 @@
 ﻿<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>首页</title>
-	<meta charset="utf-8" />
-    <link rel="stylesheet" href="css/pichichi.css">
-    <style type="text/css">
-        ul {
-            list-style: none;
-        }
-        .intro li {
-            float: left;
-        }
-        .intro li a {
-            text-decoration:none;
-            margin-left:80px;
-        }
-    </style>
-</head>
-<body>    
-    <div class="cbp-af-header">
-        <div class="cbp-af-inner">
-            <h1>公益众筹</h1>
-        </div>
-    </div>    
-    <div id="intro">
-        <ul class="intro">
-            <li><a href="help/About.html">关于网站</a></li>
-            <li><a href="project/Publish.html">项目发布</a></li>
-            <li><a href="self/Project.html">个人项目</a></li>
-            <li><a href="self/Info.html">个人资料</a></li>
-            <li><a href="sign_In.html">登陆</a></li>
-            <li><a href="sign_Up.html">注册</a></li>
-        </ul>
-    </div>
-    <div id="content">
-    RECENT WORK <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas congue gravida. Cras semper lacus in elit sagittis, nec porta nibh posuere. Phasellus consectetur tempus pharetra. In aliquet pellentesque risus, vel posuere lacus vulputate vitae. Nulla laoreet orci ac tellus aliquam, et mattis odio suscipit.
-        <div><!--分类框-->
-            <ul>
-                <li></li>
-            </ul>
-        </div>
 
-    <ul class="cbp-rfgrid" id="ProjectSummary">        <!-- 简介，概述 -->
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsums</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-        <li><a href="javascript:void(0);"><img src="images/port.png" /><div><h3>Lorem ipsum</h3></div></a></li>
-    </ul>
-    </div>
-    <footer>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    </footer>
-    <script src="js/jquery-3.1.1.js"></script>
-    <script src="js/Project.js"></script>
-</body>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center">
+                公益众筹
+			</h3>
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					 
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button> <a class="navbar-brand" href="index.html">公益众筹</a>
+				</div>
+				
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="help/About.html">关于网站</a>
+						</li>
+						<li>
+							<a href="project/Publish.html">项目发布</a>
+						</li>
+                        <li>
+                            <a href="self/Project.html">个人项目</a>
+                        </li>
+                        <li>
+                            <a href="self/Info.html">个人资料</a>
+                        </li>
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">更多<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="sign_In.html">登陆</a>
+								</li>
+								<li>
+									<a href="sign_Up.html">注册</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-right" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control">
+						</div> 
+						<button type="submit" class="btn btn-default">
+							搜索
+						</button>
+					</form>
+				</div>
+				
+			</nav>
+			<div class="jumbotron well">
+				<h2>
+					Hello, world!
+				</h2>
+				<p>
+					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+				</p>
+				<p>
+					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="thumbnail">
+                        <img src="images/city-q-c-600-200-1.jpg" />">
+						<div class="caption">
+							<h3>
+								Thumbnail label
+							</h3>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+							<p>
+								<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+                        <img alt="Bootstrap Thumbnail Second" src="images/people-q-c-600-200-1.jpg" />
+						<div class="caption">
+							<h3>
+								Thumbnail label
+							</h3>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+							<p>
+								<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+                        <img alt="Bootstrap Thumbnail Third" src="images/sports-q-c-600-200-1.jpg" />
+						<div class="caption">
+							<h3>
+								Thumbnail label
+							</h3>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+							<p>
+								<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="pagination">
+				<li>
+					<a href="#">Prev</a>
+				</li>
+				<li>
+					<a href="#">1</a>
+				</li>
+				<li>
+					<a href="#">2</a>
+				</li>
+				<li>
+					<a href="#">3</a>
+				</li>
+				<li>
+					<a href="#">4</a>
+				</li>
+				<li>
+					<a href="#">5</a>
+				</li>
+				<li>
+					<a href="#">Next</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+      <script src="js/Project.js"></script>
+  </body>
 </html>

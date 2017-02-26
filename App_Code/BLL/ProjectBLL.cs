@@ -52,7 +52,8 @@ public class ProjectBLL
                 + "ProjectStatus" + content1.Project_status
                 + "ProjectUser" + content1.Users;*/
             if (content1.Project_status.Equals("未审核") || content1.Project_status.Equals("禁止发布")) { continue; }
-            text = string.Format("<{0}>", content1.title,content1.summary,content1.files.Split(',').First());
+            text = string.Format("<li><a href='javascript:void(0);'><img src='{2}' /><div><h3>{0}</h3></div></a></li>"
+                , content1.title,content1.summary,content1.files.Split(',').First());
         }
         return text;
     }
