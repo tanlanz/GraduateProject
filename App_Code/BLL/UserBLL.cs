@@ -48,18 +48,26 @@ namespace BLL
         #region ### 登陆 
         public string Login(string UserName, string PWD)
         {
-            UserInfo UserInfo = infod.Get_UserInfoByUserName(UserName);
-            if (UserInfo == null) { return "NOEXSIT"; }
-            Users User = ud.Get_UsersById(UserInfo.user_id);
-            if (User == null) { return "NOEXSIT"; }
-            Status Status = stad.Get_StatusByUserId(User.id);
-            if(Status == null) { return "NOEXSIT"; }
-            if (Status.status_name != "禁止访问" && User.password.Equals(Common.Encrypt(PWD)))
+            try
             {
-                User.time = DateTime.Now;
-                return "SUCCESSLOGIN";
+                UserInfo UserInfo = infod.Get_UserInfoByUserName(UserName);
+                if (UserInfo == null) { return "NOEXSIT"; }
+                Users User = ud.Get_UsersById(UserInfo.user_id);
+                if (User == null) { return "NOEXSIT"; }
+                Status Status = stad.Get_StatusByUserId(User.id);
+                if (Status == null) { return "NOEXSIT"; }
+                if (Status.status_name != "禁止访问" && User.password.Equals(Common.Encrypt(PWD)))
+                {
+                    User.time = DateTime.Now;
+                    ud.Update_Users(User);
+                    return "SUCCESSLOGIN";
+                }
+                return "ERRORLOGIN";
             }
-            return "ERRORLOGIN";            
+            catch(Exception ex)
+            {
+                return string.Format("错误{0}", ex);
+            }         
         }
         #endregion
 

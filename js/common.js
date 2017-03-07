@@ -20,7 +20,7 @@ function SignUp() {
     //alert(UserName + PhoneNumber + Email + Password + ConfirmPassword);
     if (UserName == "" || PhoneNumber == "" || Email == "" || Password == "" || ConfirmPassword=="") {
         alert("所有项均不能为空"); return false;}
-    reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+    reg =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
     if (!reg.test(Email)) {alert("非法的电子邮件");return false;}
     if (Password != ConfirmPassword) { alert("密码不一致!"); return false; }    
     data1 = {
@@ -31,6 +31,7 @@ function SignUp() {
         Password: Password,
         ConfirmPassword: ConfirmPassword
     }
+    alert("");
     $.ajax({
         url: "../ashx/LoginOrRegister.ashx",
         data: data1,

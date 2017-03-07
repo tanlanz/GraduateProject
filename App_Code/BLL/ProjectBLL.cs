@@ -25,70 +25,83 @@ public class ProjectBLL
         // TODO: 在此处添加构造函数逻辑
         //
     }
+    
+    //检查权限
 
     #region ### 项目显示
     #region ### 个人项目查看
-
+    //根据个人ID查找项目
+    //根据项目ID查找项目权限
     #endregion
 
     #region ### 已发布并通过审核的项目概述
     public string Project_Display()
     {
-        string text = "";
-        if (contentD.Get_Project() == null) { return text; }
-        foreach(Project_content content1 in contentD.Get_Project())
+        try
         {
-            /*text = "ProjectName = " + content1.projectname
-                + "ProjectTitle" + content1.title
-                + "ProjectFunds" + content1.Project_funds
-                + "ProjectJoin" + content1.Project_join
-                + "ProjectSummary" + content1.summary
-                + "ProjectStart" + content1.time_start
-                + "ProjectEnd" + content1.time_end
-                + "ProjectFile" + content1.files //string[] roles = Model.Configuration.UserProfiles.UserRoleIDs.Split(',');
-                + "ProjectContent" + content1.content
-                + "ProjectReview" + content1.Project_review
-                + "ProjectSort" + content1.Project_sort
-                + "ProjectStatus" + content1.Project_status
-                + "ProjectUser" + content1.Users;*/
-            if (content1.Project_status.Equals("未审核") || content1.Project_status.Equals("禁止发布")) { continue; }
-            text = string.Format("<li><a href='javascript:void(0);'><img src='{2}' /><div><h3>{0}</h3></div></a></li>"
-                , content1.title,content1.summary,content1.files.Split(',').First());
+            string text = "";
+            if (contentD.Get_Project() == null) { return text; }
+            foreach (Project_content content1 in contentD.Get_Project())
+            {
+                if (content1.Project_status.Equals("未审核") || content1.Project_status.Equals("禁止发布")) { continue; }
+                text = string.Format("< div class='col-md-4'><div class='thumbnail'><img src = '{2}' /> '>" +
+                    "<div class='caption'><h3>{0}</h3><p>{1}</p><p><a class='btn btn-primary' href='#'>参与</a> <a class='btn' href='#'>更多</a></p></div></div></div>"
+                    , content1.title, content1.summary, content1.files.Split(',').First());
+            }
+            return text;
         }
-        return text;
+        catch (Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
     }
         #endregion
 
     #endregion
 
     #region ### 项目审核
-
+    //根据项目ID查找项目权限
+    //修改权限
     #endregion
 
     #region ### 项目发布
     public string Project_Publish(int UserID)
     {
-        //Users user = ud.Get_UsersById(UserID);
-        Status status = stausd.Get_StatusByUserId(UserID);
-        if (status.status_name == "游客") { return "NOTALLOW"; }
-        Project_content project = new Project_content();
-        project.content = "";
-        project.files = "";
-        project.projectname = "";
-        project.time_start = DateTime.Parse("");
-        project.time_end = DateTime.Parse("");
-        project.title = "";
-        project.user_id = UserID;
-        project.summary = "";
-        project.sort = "";
+        try
+        {
+            //Users user = ud.Get_UsersById(UserID);
+            Status status = stausd.Get_StatusByUserId(UserID);
+            if (status.status_name == "游客") { return "NOTALLOW"; }//游客不允许发布
+            Project_content project = new Project_content();
+            project.content = "";
+            project.files = "";
+            project.projectname = "";
+            project.time_start = DateTime.Parse("");
+            project.time_end = DateTime.Parse("");
+            project.title = "";
+            project.user_id = UserID;
+            project.summary = "";
+            project.sort = "";
+            //设置项目为未审核
 
-        if (!contentD.Insert_Project_content(project)) { return "ERROR"; }
+            if (!contentD.Insert_Project_content(project)) { return "ERROR"; }//发布之后还没有审核
 
-        return "";
+            return "";
+        }
+        catch(Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
     }
     #endregion
 
     #region ### 项目撤回
+    //根据项目ID查找项目
+    //查看权限
+    //执行撤回
+    #endregion
 
+    //设置项目类别
+    #region 项目类别
     #endregion
 }

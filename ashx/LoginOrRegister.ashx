@@ -4,7 +4,7 @@ using System;
 using System.Web;
 using BLL;
 
-public class LoginOrRegister : IHttpHandler {
+public class LoginOrRegister : IHttpHandler, System.Web.SessionState.IRequiresSessionState {
 
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "text/plain";
@@ -17,7 +17,7 @@ public class LoginOrRegister : IHttpHandler {
                 userName = context.Request.Params["UserName"].ToString();
                 Password = context.Request.Params["Password"].ToString();
                 string Text = new UserBLL().Login(userName, Password);
-                if (Text == "SUCCESSLOGIN")
+                if (Text.Equals("SUCCESSLOGIN"))
                 {
                     context.Session["ACCOUNT"] = userName;//context.Session.Remove("ACCOUNT");//登出
                 }
