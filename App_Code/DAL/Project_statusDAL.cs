@@ -124,6 +124,51 @@ namespace DAL
             }
         }
         #endregion
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年3月20日
+        ** 输入参数：
+            int Proid              一个Project_status对象唯一识别码         
+        ** 输出参数：
+            Project_status               一个Project_status实例
+        ******************************/
+        #region ### Get_Project_statusByProId  依据id获取一个Project_status对象
+        public Project_status Get_Project_statusByProId(int Proid)
+        {
+            try
+            {
+                return db.Project_status.First(a => a.project_id.Equals(Proid));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_Project_statusByProId exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年3月20日
+        ** 输入参数：
+            string status                      
+        ** 输出参数：
+            Project_status               一个Project_status实例
+        ******************************/
+        #region ### Get_Project_statusBystatus  依据id获取一个Project_status对象
+        public Project_status Get_Project_statusBystatus(string status)
+        {
+            try
+            {
+                return db.Project_status.First(a => a.project_status1.Equals(status));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_Project_statusBystatus exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
 
     }
 }

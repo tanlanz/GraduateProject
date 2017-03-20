@@ -135,16 +135,16 @@ namespace DAL
         ** 作者：zhu
         ** 创建时间：2016年10月9日
         ** 输入参数：
-            string state              一个Project_content对象的state        
+            string UserID              一个Project_content对象的UserID       
         ** 输出参数：
             Project_content               一个Project_content实例
         ******************************/
         #region ### Get_Project_content 依据id获取一个Project_content对象
-        public List<Project_content> Get_Project_content(int state)
+        public List<Project_content> Get_Project_content(int UserID)
         {
             try
             {
-                return db.Project_content.Where(a => a.user_id == state).ToList();
+                return db.Project_content.Where(a => a.user_id == UserID).ToList();
             }
             catch (Exception e)
             {
@@ -161,15 +161,49 @@ namespace DAL
             Get_Project               Get_Project
         ******************************/
         #region ### Get_Project 依据id获取一个Project_content对象
-        public List<Project_content> Get_Project()
+        public List<Project_content> Get_Project(string ProType)
         {
             try
             {
-                return db.Project_content.OrderByDescending(a => a.id).ToList();
+                Project_status pstatus = new Project_statusDAL().Get_Project_statusBystatus(ProType);
+                if (pstatus == null) return db.Project_content.OrderByDescending(a => a.id).ToList();
+                return db.Project_content.Where(a=>a.id == pstatus.project_id).OrderByDescending(a => a.id).ToList();
             }
             catch (Exception e)
             {
                 Console.WriteLine("{4} Get_Project exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年3月20日
+        ** 输入参数：
+            int UserID              一个Project_content对象的UserID       
+        ** 输出参数：
+            Project_content               一个Project_content实例
+        ******************************/
+        #region ### Get_Project_content 依据id获取一个Project_content对象
+        public List<Project_content> Get_Project_content(int UserID,string type)
+        {
+            try
+            {
+                if (type == "")
+                {
+                    return db.Project_content.Where(a => a.user_id == UserID).ToList();
+                }
+                else
+                {
+                    Project_status pstatus = new Project_statusDAL().Get_Project_statusBystatus(type);
+                    if (pstatus == null) return null;
+                    return db.Project_content.Where(a => a.user_id == UserID && a.id == pstatus.project_id).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{4} Get_Project_content exception caught." + e);
                 return null;
             }
         }

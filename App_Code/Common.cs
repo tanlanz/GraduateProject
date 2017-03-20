@@ -17,6 +17,51 @@ public class Common
         // TODO: 在此处添加构造函数逻辑
         //
     }
+
+
+    #region ### RndCode  生成一组随机数
+    public string RndCode(int length)
+    {
+        Char[] arcChar = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            '0','1','2','3','4','5','6','7','8','9',
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        System.Text.StringBuilder num = new System.Text.StringBuilder();
+        Random rnd = new Random(DateTime.Now.Millisecond + 3);
+        for (int i = 0; i < length; i++)
+        {
+            num.Append(arcChar[rnd.Next(0, arcChar.Length)].ToString());
+        }
+        return num.ToString();
+    }
+    #endregion
+
+    //查看查阅者权限类【1】
+    public bool CheckUser(int id)
+    {
+        try
+        {
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+
+    //检查权限(查找项目权限)
+    public bool Check(int id)
+    {
+        try
+        {
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
     #region ###加密解密
     /// <summary>
     /// 加密字符串

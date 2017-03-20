@@ -196,5 +196,28 @@ namespace DAL
             }
         }
         #endregion
+
+        /******************************
+        ** 作者：zhu
+        ** 创建时间：2017年3月20日
+        ** 输入参数：
+            int id              一个UserInfo对象唯一识别码
+        ** 输出参数：
+            UserInfo 一个UserInfo实例
+        ******************************/
+        #region ### Get_UserInfoByUserId  依据id获取一个UserInfo对象
+        public UserInfo Get_UserInfoByUserId(int Userid)
+        {
+            try
+            {
+                return db.UserInfo.First(a => a.user_id.Equals(Userid));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{3} Get_UserInfoByUserId exception caught." + e);
+                return null;
+            }
+        }
+        #endregion
     }
 }

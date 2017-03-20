@@ -15,6 +15,7 @@ public class UserInfoBLL
     Status status = new Status();
     UsersDAL userD = new UsersDAL();
     Users user = new Users();
+    Common common = new Common();
 
     public UserInfoBLL()
     {
@@ -26,7 +27,6 @@ public class UserInfoBLL
 
     #endregion
 
-    //查看查阅者权限类【1】
 
     #region ### 显示已有用户
     //【1】
@@ -61,16 +61,67 @@ public class UserInfoBLL
 
     #region ### 管理用户（权限，删除）
     //【1】
-    //根据ID查找用户进行修改
-    //根据ID修改
+    //根据ID查找用户进行修改*
+    //根据ID修改*
+    public string UserManage_Delete(int id)
+    {
+        if (!common.Check(id)) { }
+        try
+        {
+            string text = "";
+
+            return text;
+        }
+        catch (Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
+    }
+
+    public string UserManage_Type(int id)
+    {
+        if (!common.Check(id)) { }
+        try
+        {
+            string text = "";
+
+            return text;
+        }
+        catch (Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
+    }
     #endregion
 
-    #region ### 信息显示
-    //根据ID显示信息
+    #region ### 个人信息显示
+    //根据ID显示信息*
+    public string InfoShow(int id)
+    {
+        if (!common.Check(id)) { }
+        try
+        {
+            string text = "";
+
+            return text;
+        }
+        catch (Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
+    }
     #endregion
 
-    #region ### 信息修改保存
-    //根据信息更新数据
+    #region ### 管理显示用户信息修改保存
+    /// <summary>
+    /// 根据信息更新数据
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="username"></param>
+    /// <param name="email"></param>
+    /// <param name="status1"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
     public string SaveUser(int id,string username,string email,string status1,string time)
     {
         try
@@ -97,4 +148,7 @@ public class UserInfoBLL
         
     }
     #endregion
+
+    //图片保存
+    //（照片、项目图片）
 }

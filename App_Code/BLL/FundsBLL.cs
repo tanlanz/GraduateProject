@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class FundsBLL
 {
+    Common common = new Common();
     public FundsBLL()
     {
         //
@@ -16,4 +17,34 @@ public class FundsBLL
     }
     //资金管理
     //
+    //显示资金
+    public string FundsShow(int id)
+    {
+        if (!common.Check(id)) { }
+        try
+        {
+            string text = "";
+
+            return text;
+        }
+        catch (Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
+    }
+    //资金管理
+    public string FundsManage(int id)
+    {
+        if (!common.Check(id)) { }
+        try
+        {
+            string text = "";
+
+            return text;
+        }
+        catch (Exception ex)
+        {
+            return string.Format("错误{0}", ex);
+        }
+    }
 }

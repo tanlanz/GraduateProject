@@ -63,19 +63,20 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#">Home</a>
+                        <a href="#" id="content">内容</a>
                     </li>
                     <li>
-                        <a href="#PublishType">评论</a>
+                        <a href="#" id="view">评论</a>
                     </li>
-                    <li class="disabled">
+                    <!--<li class="disabled">
                         <a href="#">Messages</a>
-                    </li>
+                    </li>-->
+                    <!--类别-->
                     <li class="dropdown pull-right">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Dropdown<strong class="caret"></strong></a>
-                        <ul class="dropdown-menu">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">选择类别<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu" id="ProjectType">
                             <li>
-                                <a href="#">Action</a>
+                                <a href="#">Action1</a>
                             </li>
                             <li>
                                 <a href="#">Another action</a>
@@ -83,8 +84,7 @@
                             <li>
                                 <a href="#">Something else here</a>
                             </li>
-                            <li class="divider">
-                            </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="#">Separated link</a>
                             </li>
@@ -95,38 +95,62 @@
         </div>        
         
         <!--内容1-->
-        <div class="row">
+        <div class="row" id="Content">
             <div class="col-md-4">
-                <img alt="Bootstrap Image Preview" src="../images/140140.jpg" class="img-rounded" onclick=""> 
-                <span class="label label-default">Label</span>
+                <br /><br />
+                <img alt="Bootstrap Image Preview" src="../images/140140.jpg" class="img-rounded" style="margin-left:30%" onclick="">
             </div>
             <div class="col-md-8">
-                <p>
-                    Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
-                </p>
-                <button type="button" class="btn btn-default">
-                    Default
-                </button>
+                <br />
+                <span class="label label-default">概述</span>
+                <textarea style="width:100%;height:150px">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.
+                </textarea>
             </div>
-        </div>
-
-        <br /><br />
-        <!--内容2-->
-        <div class="row" id="Text">
             <div class="col-md-12">
+                <br /><br />
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Panel title
-                        </h3>
+                        <input class="panel-title" placeholder="标题" />
                     </div>
                     <div class="panel-body">
-                        Panel content
+                        <div id="ProjectContent">
+                            <div>
+                                <ul>
+                                    <!--<li>发起人信息</li>-->
+                                    <li>时间：<labl id="PublishTime">   </labl>--<input class="panel-title" placeholder="截止时间" /><br /></li>
+                                    <li><textarea class="panel-body" style="width:100%" type="text">主体</textarea></li>
+                                    <li><input class="panel-title" placeholder="预计筹资" /></li>
+                                    <li>
+                                        <button type="button" class="btn btn-default" id="PublishSave">
+                                            相关图片
+                                        </button>
+                                    </li>
+                                    <!--<li>已有：</li>
+                                <li>剩余：</li>-->
+                                    <!--<li>参与人数：</li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <input class="panel-title" placeholder="后记" />
+                        </div>
                     </div>
-                    <div class="panel-footer">
-                        Panel footer
-                    </div>
-                </div> 
+                </div>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default" id="New">
+                        新建
+                    </button>
+                    <button type="button" class="btn btn-default" id="PublishSave" onclick="SavePublish()">
+                        保存
+                    </button>
+                    <br /><br /><br />
+                </div>
+            </div>
+        </div>        
+        <!--评论-->
+        <div class="row" id="View1" style="display:none;">
+            <div class="col-md-12">
                 <br /><br />
                 <span class="label label-default">评论</span>
                 <blockquote>
@@ -136,56 +160,38 @@
                 </blockquote>
             </div>
         </div>
-    </div>
 
-    <div id="PublishType">
-        选择类别
-        <select id="ProjectType">
-            <option></option>
-        </select>
-    </div>
-    <div id="PublishContent">
+    <!--<div id="PublishContent">
         <ul>
             <li>内容编辑</li>
             <li>文字</li>
             <li>图片</li>
             <li>视频</li>
         </ul>
-    </div>
-    <div>
-        <ul>
-            <li>
-                <input type="button" value="保存" id="PublishSave" />
-            </li>
-            <li>
-                <input type="button" value="提交" id="PublishCommit" />
-            </li>
-        </ul>
-    </div>
-    <div id="ProjectContent">
-        <div>
-            <ul>
-                <li>标题</li>
-                <li>发起人信息</li>
-                <li>时间：发布时间-截止时间<br /></li>
-                <li>主体</li>
-                <li>相关图片等</li>
-                <li>项目资金:</li>
-                <li>已有：</li>
-                <li>剩余：</li>
-                <li>参与人数：</li>
-            </ul>
-        </div>
-        <div>入资--选择支付</div>
+    </div>-->
+    
+        <!--<div>入资--选择支付</div>
         <div>
             <ul>
                 <li>评论：</li>
                 <li>进行评论；</li>
                 <li>已发布的评论；</li>
             </ul>
-        </div>
+        </div>-->
     </div>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/Project.js"></script>
+    <script type="text/javascript">
+        $("#view").click(function () {
+            $("#View1").show();
+            $("#Content").hide();
+            $("#content").parent().css("","");
+        });
+        $("#content").click(function () {
+            $("#Content").show();
+            $("#View1").hide();
+        });
+    </script>
 </body>
 </html>
